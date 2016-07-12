@@ -1,0 +1,29 @@
+{
+  "name": "http-francis",
+  "description": "description of http-francis",
+  "main": [
+    "dist/dist.js"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/*",
+    "!dist/**/*",
+    "!src/**/*",
+    "!CHANGELOG",
+    "!README.md",
+    "!bower.json"
+  ],
+  "keywords": [],
+  "authors": [],
+  "homepage": "https://github.com/D-Mobilelab/http-francis",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/D-Mobilelab/http-francis.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "private": false
+}

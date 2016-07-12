@@ -1,0 +1,30 @@
+{
+  "name": "http-francis",
+  "version": "1.0.0",
+  "description": "description of http-francis",
+  "keywords": [],
+  "homepage": "https://github.com/D-Mobilelab/http-francis",
+  "bugs": {
+    "url": "https://github.com/D-Mobilelab/http-francis/issues"
+  },
+  "license": "MIT",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/D-Mobilelab/http-francis.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "dml-js-boilerplate": "2.x"
+  },
+  "engines": {
+    "node": "0.10.25"
+  },
+  "private": false,
+  "browserify": {
+    "src": "main.js",
+    "dist": "dist.js",
+    "global": "Animals"
+  }
+}

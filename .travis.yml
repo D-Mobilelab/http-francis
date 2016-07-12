@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "4"
+
+branches:
+ only:
+   - master
+
+before_install:
+  - npm install -g bower grunt npm@3
+  - npm -v
+  - node -v
+
+install:
+  - npm install
+  - bower install
+
+after_install:
+  - ls -la node_modules/ 
+
+script:
+  - grunt travis -v
