@@ -238,8 +238,8 @@ var Http = function () {
                             var blob = new Blob([xhr.response], { type: self.options.mimeType });
                             var fileReader = new FileReader();
 
-                            fileReader.onload = function (event) {
-                                var raw = event.target.result;
+                            fileReader.onload = function (e) {
+                                var raw = e.target.result;
                                 resolve([raw, xhr.status, xhr]);
                             };
 

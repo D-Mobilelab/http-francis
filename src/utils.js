@@ -90,8 +90,6 @@ function dequeryfy(_url){
     }, {});
 }
 
-
-
 /**
  * extend: this function merge two objects in a new one with the properties of both
  *

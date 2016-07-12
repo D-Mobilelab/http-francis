@@ -113,36 +113,36 @@ class Http{
         xhr.onreadystatechange = function(event){
             if (xhr.readyState === xhr.DONE) {
                 if (xhr.status >= 200 && xhr.status < 400) {                    
-                        if (xhr.responseType === 'blob'){
-                            LOG.log('BLOB CASE!');
-                            
-                            // try to infer mimetype from extension?
-                            var blob = new Blob([xhr.response], { type: self.options.mimeType });
-                            var fileReader = new FileReader();
-                            
-                            fileReader.onload = function(event){ 
-                                var raw = event.target.result;    
-                                resolve([raw, xhr.status, xhr]);
-                            };
-                            
-                            fileReader.readAsDataURL(blob);
-                            
-                        } else {
-                            var result = parseResponse.bind(self)(xhr);   
-                            resolve(result);
-                            self.callback(result);    
-                        }               
-                                
-                        self.options.attempt = 0;
+                    if (xhr.responseType === 'blob'){
+                        LOG.log('BLOB CASE!');
+                        
+                        // try to infer mimetype from extension?
+                        var blob = new Blob([xhr.response], { type: self.options.mimeType });
+                        var fileReader = new FileReader();
+                        
+                        fileReader.onload = function(e){ 
+                            var raw = e.target.result;    
+                            resolve([raw, xhr.status, xhr]);
+                        };
+                        
+                        fileReader.readAsDataURL(blob);
+                        
                     } else {
-                        // statusCode >= 400 retry                
-                        self.timeoutID = setTimeout(function(){
-                            self.options.attempt -= 1;
-                            console.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');                        
-                            self.do(resolve, reject);
-                        }, self.options.retryAfter);                
-                    }
+                        var result = parseResponse.bind(self)(xhr);   
+                        resolve(result);
+                        self.callback(result);    
+                    }               
+                            
+                    self.options.attempt = 0;
+                } else {
+                    // statusCode >= 400 retry                
+                    self.timeoutID = setTimeout(function(){
+                        self.options.attempt -= 1;
+                        console.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');                        
+                        self.do(resolve, reject);
+                    }, self.options.retryAfter);                
                 }
+            }
         };
 
         xhr.onprogress = wrapProgress(self.options.onProgress);
@@ -191,15 +191,15 @@ function parseResponse(xhr){
 }
 
 function wrapProgress(fn){
-     return function(progressEvent){
+    return function(progressEvent){
         if (progressEvent.lengthComputable) {
             var percentComplete = Math.round((progressEvent.loaded / progressEvent.total) * 100);
             return fn(percentComplete);            
         } else {
             return fn('loading');
         }
-    }; 
- }
+    };
+}
 
 function addCustomHeaders(headersObj, xhr){
     for (var k in headersObj){
