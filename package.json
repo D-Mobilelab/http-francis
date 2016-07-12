@@ -13,10 +13,24 @@
     "type": "git",
     "url": "git://github.com/D-Mobilelab/http-francis.git"
   },
+  "main": "src5/main.js",
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "logger-pro": "^2.0.1"
+  },
   "devDependencies": {
-    "dml-js-boilerplate": "2.x"
+    "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.1.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babelify": "^7.3.0",
+    "dml-js-boilerplate": "2.x",
+    "jasmine-ajax": "^3.2.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-mocha-reporter": "^2.0.4"
   },
   "engines": {
     "node": "0.10.25"
@@ -25,6 +39,17 @@
   "browserify": {
     "src": "main.js",
     "dist": "dist.js",
-    "global": "Animals"
+    "global": "Francis",
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ],
+          "comments": false
+        }
+      ]
+    ]
   }
 }

@@ -22,8 +22,6 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            "mock.js",
-            // "src/**/*.js",
             "test/**/*.js"
         ],
 
@@ -34,23 +32,12 @@ module.exports = function(config) {
 
         // web server port
         port: 8080,
-
         // Start these browsers, currently available:
         // - Chrome, ChromeCanary, Firefox, Opera, Safari (only Mac), PhantomJS, IE (only Windows)
         browsers: [
-            "PhantomJS"
+            "Chrome"
         ],
-
-        // Which plugins to enable
-        plugins: [
-            "karma-phantomjs-launcher",
-            "karma-jasmine",
-            "karma-coverage",
-            "karma-browserify",
-            "karma-coveralls",
-            // "karma-mocha-reporter"
-        ],
-
+        reporters: ['coverage', 'coveralls', 'mocha'],
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: false,
@@ -59,21 +46,21 @@ module.exports = function(config) {
 
         // level of logging
         // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-        logLevel: config.LOG_INFO,
-
-        reporters: [
-            'progress', 
-            'coverage',
-            'coveralls',
-            // 'mocha'
-        ],
+        logLevel: config.LOG_DISABLE,
         preprocessors: {
-            'src/**/*.js': ['coverage'],
+            'src/**/*.js': ['browserify', 'coverage'],
             'test/*.test.js': ['browserify']
         },
         coverageReporter: {
-            type : 'lcov',
-            dir : 'test/coverage/'
+            reporters: [{ type: 'text' }, {
+                type: 'html',
+                dir: 'test/coverage',
+                subdir: 'html'
+            }, {
+                type: 'lcovonly',
+                dir: 'test/coverage',
+                subdir: 'lcov'
+            }]
         },
 
         // enable / disable colors in the output (reporters and logs)
@@ -81,7 +68,7 @@ module.exports = function(config) {
 
         browserify: {
             debug: true,
-            transform: ['browserify-istanbul']
+            transform: ['babelify', 'browserify-istanbul']
         }
 
         // Uncomment the following lines if you are using grunt's server to run the tests
