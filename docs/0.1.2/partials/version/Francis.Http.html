@@ -1,0 +1,60 @@
+<h1><code ng:non-bindable="">Francis:Http</code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="francis-page francis-http-page"><p>an http class to make requests over the net with retry and interval between them</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage"><pre class="prettyprint linenums">Http(requestParams, callback);</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>requestParams</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>object where you can specify the options of the request</li>
+</ul>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>type</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the type of the request: possible values POST, GET, PUT, DELETE and JSONP</li>
+</ul>
+</div> <p><em>(default: GET)</em></p></td></tr><tr><td>url</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the url to request for</li>
+</ul>
+</div></td></tr><tr><td>headers</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the headers object</li>
+</ul>
+</div> <p><em>(default: {})</em></p></td></tr><tr><td>timeout</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the timeout of the request in ms</li>
+</ul>
+</div> <p><em>(default: 2000)</em></p></td></tr><tr><td>attempt</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>attempts. if it fails for some reason retry</li>
+</ul>
+</div> <p><em>(default: 1)</em></p></td></tr><tr><td>retryAfter</td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the interval between requests in ms: 500 for example</li>
+</ul>
+</div> <p><em>(default: 0)</em></p></td></tr><tr><td>async</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>the request could be synchrounous, default async</li>
+</ul>
+</div> <p><em>(default: true)</em></p></td></tr></tbody></table></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="francis-page francis-http-page"><ul>
+<li>onend callback</li>
+</ul>
+</div> <p><em>(default: function(){})</em></p></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="francis-page francis-http-page"><pre class="prettyprint linenums">
+//var Http = require("http-francis").Http;
+// &lt;script src=http-francis.js&gt;&lt;/script&gt; // in this case Francis.Http     
+ var getTask = new Http({
+      method: "GET",
+      url: "https://someimageurl/image.png",
+      responseType: "blob",
+      mimeType: "image/png",
+      onProgress:(percentage)=&gt;{ 
+          // there must be Content-Length header in the response to get the right percentage
+          // otherwise percentage is a NaN
+      }
+  });
+
+  getTask.promise.then((response) =&gt; { 
+      var imgTag = document.createElement("img");
+      imgTag.src = response[0];
+      document.body.appendChild(imgTag);       
+  });
+</pre> </p>
+</div></div>
+</div>
