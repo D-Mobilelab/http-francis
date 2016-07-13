@@ -25,17 +25,46 @@ var defaultOptions = {
 };
 
 /**
- * @ngdoc class
- * @name Http 
- * @description an http class to make requests over the net with retry and interval between them
- * @param {object} requestParams - object where you can specify the options of the request
- * @param {string} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
- * @param {string} requestParams.url - the url to request for
- * @param {object} [requestParams.headers={"Accept":"application/json"}] - the headers object
- * @param {string} [requestParams.timeout=2000] - the timeout of the request in ms
- * @param {boolean} [requestParams.async=true] - the request could be synchrounous
+ * @ngdoc function
+ * @name Francis#Http
+ * @methodOf Francis
  * */
 class Http{
+    /**
+     * @ngdoc object
+     * @name Francis:Http
+     * @description an http class to make requests over the net with retry and interval between them
+     * @param {object} requestParams - object where you can specify the options of the request
+     * @param {string} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
+     * @param {string} requestParams.url - the url to request for
+     * @param {object} [requestParams.headers={}] - the headers object
+     * @param {string} [requestParams.timeout=2000] - the timeout of the request in ms
+     * @param {string} [requestParams.attempt=1] - attempts. if it fails for some reason retry
+     * @param {number} [requestParams.retryAfter=0] - the interval between requests in ms: 500 for example   
+     * @param {boolean} [requestParams.async=true] - the request could be synchrounous, default async
+     * @param {function} [callback=function(){}] - onend callback
+     * @example
+     * <pre>
+     * //var Http = require("http-francis").Http;
+     * // <script src=http-francis.js></script> // in this case Francis.Http     
+     *  var getTask = new Http({
+     *       method: "GET",
+     *       url: "https://someimageurl/image.png",
+     *       responseType: "blob",
+     *       mimeType: "image/png",
+     *       onProgress:(percentage)=>{ 
+     *           // there must be Content-Length header in the response to get the right percentage
+     *           // otherwise percentage is a NaN
+     *       }
+     *   });
+     *
+     *   getTask.promise.then((response) => { 
+     *       var imgTag = document.createElement("img");
+     *       imgTag.src = response[0];
+     *       document.body.appendChild(imgTag);       
+     *   });
+     * </pre> 
+     */
     constructor(options, callback = () => {}){  
         var self = this;
         this.options = extend(defaultOptions, options);  
@@ -163,6 +192,11 @@ class Http{
     }
 }
 
+/**
+ * parseResponse
+ * @param {XMLHttpRequest} xhr - parse 
+ * @returns {array} - [responseData, statusCode, xhr]
+ */
 function parseResponse(xhr){
     var parsed;
     var self = this;
