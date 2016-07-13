@@ -1,16 +1,20 @@
 # http-francis
 
-[![Build Status](https://travis-ci.org/D-Mobilelab/http-francis.svg?branch=master)](https://travis-ci.org/D-Mobilelab/your_library)
-[![Coverage Status](https://coveralls.io/repos/github/D-Mobilelab/http-francis/badge.svg?branch=master)](https://coveralls.io/github/D-Mobilelab/your_library?branch=master)
-[![npm version](https://badge.fury.io/js/http-francis.svg)](https://badge.fury.io/js/your_library)
-[![Bower version](https://badge.fury.io/bo/http-francis.svg)](https://badge.fury.io/bo/your_library)
-[![GitHub version](https://badge.fury.io/gh/D-Mobilelab%http-francis.svg)](https://badge.fury.io/gh/D-Mobilelab%your_library)
+[![Build Status](https://travis-ci.org/D-Mobilelab/http-francis.svg?branch=master)](https://travis-ci.org/D-Mobilelab/http-francis)
+[![Coverage Status](https://coveralls.io/repos/github/D-Mobilelab/http-francis/badge.svg?branch=master)](https://coveralls.io/github/D-Mobilelab/http-francis?branch=master)
+[![npm version](https://badge.fury.io/js/http-francis.svg)](https://badge.fury.io/js/http-francis)
+[![Bower version](https://badge.fury.io/bo/http-francis.svg)](https://badge.fury.io/bo/http-francis)
+[![GitHub version](https://badge.fury.io/gh/D-Mobilelab%http-francis.svg)](https://badge.fury.io/gh/D-Mobilelab%http-francis)
 
-http-francis description
+an http class to make requests over the net with retry and interval between them
 
 ## Usage
 ```
-// insert here a simple example of http-francis
+var Francis = require('http-francis');
+var francis = new Francis.Http({
+    method:"GET", // JSONP, POST, DELETE, PUT
+    url:"https://httpbin.org/get"
+});
 ```
 
 ## Installation
@@ -66,6 +70,6 @@ francis.promise.then((response) => {
 
 To read documentation, go to:
 
-[http://d-mobilelab.github.io/http-francis/1.0.0](http://d-mobilelab.github.io/your_library/1.0.0)
+[http://d-mobilelab.github.io/http-francis/0.1.2](http://d-mobilelab.github.io/http-francis/0.1.2)
 
-Replace <i>1.0.0</i> with the version of the documentation you want to read.
+Replace <i>0.1.2</i> with the version of the documentation you want to read.
