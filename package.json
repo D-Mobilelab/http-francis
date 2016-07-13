@@ -16,7 +16,7 @@
   "main": "src5/main.js",
   "scripts": {},
   "dependencies": {
-    "logger-pro": "^2.0.1"
+    "logger-pro": "^2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
