@@ -31,7 +31,7 @@ define(String.prototype, "padRight", "".padEnd);
   [][key] && define(Array, key, Function.call.bind([][key]));
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"core-js/fn/regexp/escape":2,"core-js/shim":296,"regenerator-runtime/runtime":299}],2:[function(require,module,exports){
+},{"core-js/fn/regexp/escape":2,"core-js/shim":296,"regenerator-runtime/runtime":301}],2:[function(require,module,exports){
 require('../../modules/core.regexp.escape');
 module.exports = require('../../modules/_core').RegExp.escape;
 },{"../../modules/_core":23,"../../modules/core.regexp.escape":120}],3:[function(require,module,exports){
@@ -6090,126 +6090,283 @@ require('./modules/web.immediate');
 require('./modules/web.dom.iterable');
 module.exports = require('./modules/_core');
 },{"./modules/_core":23,"./modules/es6.array.copy-within":121,"./modules/es6.array.every":122,"./modules/es6.array.fill":123,"./modules/es6.array.filter":124,"./modules/es6.array.find":126,"./modules/es6.array.find-index":125,"./modules/es6.array.for-each":127,"./modules/es6.array.from":128,"./modules/es6.array.index-of":129,"./modules/es6.array.is-array":130,"./modules/es6.array.iterator":131,"./modules/es6.array.join":132,"./modules/es6.array.last-index-of":133,"./modules/es6.array.map":134,"./modules/es6.array.of":135,"./modules/es6.array.reduce":137,"./modules/es6.array.reduce-right":136,"./modules/es6.array.slice":138,"./modules/es6.array.some":139,"./modules/es6.array.sort":140,"./modules/es6.array.species":141,"./modules/es6.date.now":142,"./modules/es6.date.to-iso-string":143,"./modules/es6.date.to-json":144,"./modules/es6.date.to-primitive":145,"./modules/es6.date.to-string":146,"./modules/es6.function.bind":147,"./modules/es6.function.has-instance":148,"./modules/es6.function.name":149,"./modules/es6.map":150,"./modules/es6.math.acosh":151,"./modules/es6.math.asinh":152,"./modules/es6.math.atanh":153,"./modules/es6.math.cbrt":154,"./modules/es6.math.clz32":155,"./modules/es6.math.cosh":156,"./modules/es6.math.expm1":157,"./modules/es6.math.fround":158,"./modules/es6.math.hypot":159,"./modules/es6.math.imul":160,"./modules/es6.math.log10":161,"./modules/es6.math.log1p":162,"./modules/es6.math.log2":163,"./modules/es6.math.sign":164,"./modules/es6.math.sinh":165,"./modules/es6.math.tanh":166,"./modules/es6.math.trunc":167,"./modules/es6.number.constructor":168,"./modules/es6.number.epsilon":169,"./modules/es6.number.is-finite":170,"./modules/es6.number.is-integer":171,"./modules/es6.number.is-nan":172,"./modules/es6.number.is-safe-integer":173,"./modules/es6.number.max-safe-integer":174,"./modules/es6.number.min-safe-integer":175,"./modules/es6.number.parse-float":176,"./modules/es6.number.parse-int":177,"./modules/es6.number.to-fixed":178,"./modules/es6.number.to-precision":179,"./modules/es6.object.assign":180,"./modules/es6.object.create":181,"./modules/es6.object.define-properties":182,"./modules/es6.object.define-property":183,"./modules/es6.object.freeze":184,"./modules/es6.object.get-own-property-descriptor":185,"./modules/es6.object.get-own-property-names":186,"./modules/es6.object.get-prototype-of":187,"./modules/es6.object.is":191,"./modules/es6.object.is-extensible":188,"./modules/es6.object.is-frozen":189,"./modules/es6.object.is-sealed":190,"./modules/es6.object.keys":192,"./modules/es6.object.prevent-extensions":193,"./modules/es6.object.seal":194,"./modules/es6.object.set-prototype-of":195,"./modules/es6.object.to-string":196,"./modules/es6.parse-float":197,"./modules/es6.parse-int":198,"./modules/es6.promise":199,"./modules/es6.reflect.apply":200,"./modules/es6.reflect.construct":201,"./modules/es6.reflect.define-property":202,"./modules/es6.reflect.delete-property":203,"./modules/es6.reflect.enumerate":204,"./modules/es6.reflect.get":207,"./modules/es6.reflect.get-own-property-descriptor":205,"./modules/es6.reflect.get-prototype-of":206,"./modules/es6.reflect.has":208,"./modules/es6.reflect.is-extensible":209,"./modules/es6.reflect.own-keys":210,"./modules/es6.reflect.prevent-extensions":211,"./modules/es6.reflect.set":213,"./modules/es6.reflect.set-prototype-of":212,"./modules/es6.regexp.constructor":214,"./modules/es6.regexp.flags":215,"./modules/es6.regexp.match":216,"./modules/es6.regexp.replace":217,"./modules/es6.regexp.search":218,"./modules/es6.regexp.split":219,"./modules/es6.regexp.to-string":220,"./modules/es6.set":221,"./modules/es6.string.anchor":222,"./modules/es6.string.big":223,"./modules/es6.string.blink":224,"./modules/es6.string.bold":225,"./modules/es6.string.code-point-at":226,"./modules/es6.string.ends-with":227,"./modules/es6.string.fixed":228,"./modules/es6.string.fontcolor":229,"./modules/es6.string.fontsize":230,"./modules/es6.string.from-code-point":231,"./modules/es6.string.includes":232,"./modules/es6.string.italics":233,"./modules/es6.string.iterator":234,"./modules/es6.string.link":235,"./modules/es6.string.raw":236,"./modules/es6.string.repeat":237,"./modules/es6.string.small":238,"./modules/es6.string.starts-with":239,"./modules/es6.string.strike":240,"./modules/es6.string.sub":241,"./modules/es6.string.sup":242,"./modules/es6.string.trim":243,"./modules/es6.symbol":244,"./modules/es6.typed.array-buffer":245,"./modules/es6.typed.data-view":246,"./modules/es6.typed.float32-array":247,"./modules/es6.typed.float64-array":248,"./modules/es6.typed.int16-array":249,"./modules/es6.typed.int32-array":250,"./modules/es6.typed.int8-array":251,"./modules/es6.typed.uint16-array":252,"./modules/es6.typed.uint32-array":253,"./modules/es6.typed.uint8-array":254,"./modules/es6.typed.uint8-clamped-array":255,"./modules/es6.weak-map":256,"./modules/es6.weak-set":257,"./modules/es7.array.includes":258,"./modules/es7.asap":259,"./modules/es7.error.is-error":260,"./modules/es7.map.to-json":261,"./modules/es7.math.iaddh":262,"./modules/es7.math.imulh":263,"./modules/es7.math.isubh":264,"./modules/es7.math.umulh":265,"./modules/es7.object.define-getter":266,"./modules/es7.object.define-setter":267,"./modules/es7.object.entries":268,"./modules/es7.object.get-own-property-descriptors":269,"./modules/es7.object.lookup-getter":270,"./modules/es7.object.lookup-setter":271,"./modules/es7.object.values":272,"./modules/es7.observable":273,"./modules/es7.reflect.define-metadata":274,"./modules/es7.reflect.delete-metadata":275,"./modules/es7.reflect.get-metadata":277,"./modules/es7.reflect.get-metadata-keys":276,"./modules/es7.reflect.get-own-metadata":279,"./modules/es7.reflect.get-own-metadata-keys":278,"./modules/es7.reflect.has-metadata":280,"./modules/es7.reflect.has-own-metadata":281,"./modules/es7.reflect.metadata":282,"./modules/es7.set.to-json":283,"./modules/es7.string.at":284,"./modules/es7.string.match-all":285,"./modules/es7.string.pad-end":286,"./modules/es7.string.pad-start":287,"./modules/es7.string.trim-left":288,"./modules/es7.string.trim-right":289,"./modules/es7.symbol.async-iterator":290,"./modules/es7.symbol.observable":291,"./modules/es7.system.global":292,"./modules/web.dom.iterable":293,"./modules/web.immediate":294,"./modules/web.timers":295}],297:[function(require,module,exports){
-'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-var Logger = new function () {
+var Logger = new function(){
 
     var _Logger = this;
 
+    // defines log levels and their order (priority)
     var levels = ['log', 'table', 'info', 'warn', 'error'];
-
+    
+    // config will hold the configuration used at runtime, e.g. 
     var config = {};
 
-    this.getConfig = function getConfig() {
+    // "read-only" getter for config
+    this.getConfig = function getConfig(){
         return JSON.parse(JSON.stringify(config));
     };
 
-    var emit = function emit(level, args) {
+    // default emit function: uses console for logging messages
+    var emit = function emit(level, args){
         console[level](args);
     };
 
-    this.init = function init(options) {
-        var typeOfenabled = _typeof(options.enabled);
-        var typeOfLevel = _typeof(options.level);
-        var typeOfLevels = _typeof(options.levels);
-        var typeOfEmit = _typeof(options.emit);
+    // init the module with optional parameters
+    this.init = function init(options){
+        // used for checking the type of each attribute in options
+        var typeOfenabled = typeof options.enabled;
+        var typeOfLevel = typeof options.level;
+        var typeOfLevels = typeof options.levels;
+        var typeOfEmit = typeof options.emit;
 
-        if (typeOfenabled === 'boolean') {
+        // enabled setup
+        if (typeOfenabled === 'boolean'){
             config.enabled = options.enabled;
         } else if (typeOfenabled !== 'undefined') {
             throw new Error('Logger :: illegal type for enabled - expected boolean, got ' + typeOfenabled);
         }
-
-        if (typeOfLevel === 'string') {
-            if (levels.indexOf(options.level) === -1) {
+        if (typeOfLevel === 'string'){
+            if (levels.indexOf(options.level) === -1){
                 throw new Error('Logger :: unknown level ' + options.level);
             } else {
-                for (var i = 0; i < levels.length; i++) {
+                for (var i = 0; i < levels.length; i++){
                     config[levels[i]] = levels.indexOf(options.level) <= i;
                 }
             }
         } else if (typeOfLevel !== 'undefined') {
             throw new Error('Logger :: illegal type for level - expected string, got ' + typeOfLevel);
         }
-
-        if (typeOfLevels === 'object') {
+        if (typeOfLevels === 'object'){
             var level;
-
-            for (level in options.levels) {
-                typeOfLevel = _typeof(options.levels[level]);
-                if (typeOfLevel !== 'boolean') {
-                    throw new Error('Logger :: illegal value type for level "' + level + '"' + ' - expected boolean, got "' + typeOfLevel + '"');
+            // sanity checks first
+            for (level in options.levels){
+                // sanity check for each level's value type (must be a boolean)
+                typeOfLevel = typeof options.levels[level]; 
+                if (typeOfLevel !== 'boolean'){
+                    throw new Error('Logger :: illegal value type for level "' + level + '"' +
+                            ' - expected boolean, got "' + typeOfLevel + '"');
                 }
 
-                if (levels.indexOf(level) === -1) {
+                // ignore unknown levels
+                if (levels.indexOf(level) === -1){
                     throw new Error('Logger :: unknown log level "' + level + '"');
                 }
             }
 
-            for (level in options.levels) {
+            // now that we are sure all values are legal, we can put them into the new configuration
+            for (level in options.levels){
                 config[level] = !!options.levels[level];
             }
-        } else if (typeOfLevels !== 'undefined') {
+        } else if (typeOfLevels !== 'undefined'){
             throw new Error('Logger :: illegal type for levels - expected object, got ' + typeOfLevels);
         }
-
-        if (typeOfEmit === 'function') {
+        if (typeOfEmit === 'function'){
             emit = options.emit;
-        } else if (typeOfEmit !== 'undefined') {
+        } else if (typeOfEmit !== 'undefined'){
             throw new Error('Logger :: illegal type for emit - expected function, got ' + typeOfEmit);
         }
     };
-
-    this.log = function log() {
+    this.log = function log(){
         var args = Array.prototype.slice.call(arguments);
-        if (config.enabled && !!config.log) {
+        if (config.enabled && !!config.log){
             emit('log', args);
         }
     };
 
-    this.table = function table() {
+    this.table = function table(){
         var args = Array.prototype.slice.call(arguments);
-        if (config.enabled && !!config.table) {
+        if (config.enabled && !!config.table){
             emit('table', args);
-        }
+        }    
     };
 
-    this.info = function info() {
+    this.info = function info(){
         var args = Array.prototype.slice.call(arguments);
-        if (config.enabled && !!config.info) {
+        if (config.enabled && !!config.info){
             emit('info', args);
         }
     };
-
-    this.warn = function warn() {
+    
+    this.warn = function warn(){
         var args = Array.prototype.slice.call(arguments);
-        if (config.enabled && !!config.warn) {
+        if (config.enabled && !!config.warn){
             emit('warn', args);
-        }
+        }    
     };
-
-    this.error = function error() {
+    
+    this.error = function error(){
         var args = Array.prototype.slice.call(arguments);
-        if (config.enabled && !!config.error) {
+        if (config.enabled && !!config.error){
             emit('error', args);
-        }
+        }    
     };
 
-    this.isEnabled = function () {
+    this.isEnabled = function(){
         return !!config.enabled;
     };
 
+    // default setup: show every message
     _Logger.init({
         level: 'log',
         enabled: true
     });
-}();
+
+};
 
 module.exports = Logger;
-
 },{}],298:[function(require,module,exports){
+var Logger = require('./base-logger');
+var RotatingLogger = require('./rotating-logger');
+module.exports = {
+    Logger: Logger, 
+    RotatingLogger: RotatingLogger
+};
+},{"./base-logger":297,"./rotating-logger":299}],299:[function(require,module,exports){
+
+var Logger = require('./base-logger.js');
+
+var RotatingLogger = new function(){
+
+    // IMPORTANT: requires Logger
+    var logger = Logger;
+
+    // this Array will contain each message
+    var messages = [];
+    // this is the max size of messages (before it gets downloaded)
+    var maxSize = 100;
+
+    // true if logger is enabled (by config) to record messages
+    var recordingEnabled = true;
+    // true if logger is recording messages
+    var isRecording = false;
+    // if true, only the last maxSize messages are recorded
+    var sliding = true;
+    this.getConfig = function(){
+        var config = logger.getConfig();
+        config.maxSize = maxSize;
+        config.sliding = sliding;
+        return config;
+    };
+
+
+    var handleMessages = function(level, args){
+        if (messages.length >= maxSize){
+            if (!sliding){
+                endRotate();
+            } else {
+                messages.shift();
+            }
+        }
+
+        logger[level](args);
+        if (recordingEnabled && logger.getConfig().enabled){
+            messages.push([level, args]);
+        }
+    };
+
+    // expose Logger's main methods
+    this.log = function(){
+        var args = Array.prototype.slice.call(arguments);
+        handleMessages('log', args);
+    };
+
+    this.info = function(){
+        var args = Array.prototype.slice.call(arguments);
+        handleMessages('info', args);
+    };
+
+    this.table = function(){
+        var args = Array.prototype.slice.call(arguments);
+        handleMessages('table', args);
+    };
+
+    this.warn = function(){
+        var args = Array.prototype.slice.call(arguments);
+        handleMessages('warn', args);
+    };
+
+    this.error = function(){
+        var args = Array.prototype.slice.call(arguments);
+        handleMessages('error', args);
+    };
+
+    // this will open a new tab showing a chunk of messages in JSON format
+    var saveRecords = function(msgs){
+        var exportData = 'data:text/json;charset=utf-8,';
+        exportData += JSON.stringify(msgs, null, 4);
+        var encodedUri = encodeURI(exportData);
+        window.open(encodedUri, '_blank');
+    };
+
+    var endRotate = function(){
+        saveRecords(messages);
+        messages = [];
+    };
+
+    // starts adding logs to messages var
+    this.startRecording = function(resetMessages){
+        if (!!resetMessages){
+            messages = [];
+        }
+        isRecording = true;
+    };
+
+    // stops recording messages and downloads them as JSON
+    this.endRecording = function(){
+
+        if (!isRecording){
+            console.warn('RotatingLogger :: endRecording called while RotatingLogger was not recording');
+        }
+
+        isRecording = false;
+        endRotate();
+    };
+
+    this.init = function(options){
+        var typeOfMaxSize = typeof options.maxSize;
+        var typeOfSliding = typeof options.sliding;
+        var typeOfRecEnabled = typeof options.recordingEnabled;
+        var typeOfSaveRecords = typeof options.saveRecords;
+        if (typeOfMaxSize !== 'undefined'){
+            if (typeOfMaxSize !== 'number'){
+                throw new Error('RotatingLogger :: illegal type "' + typeOfMaxSize + '" for maxSize, "number" expected');
+            } else {
+                maxSize = options.maxSize;
+                delete options.maxSize;
+            }
+        }
+        if (typeOfSliding !== 'undefined'){
+            if (typeOfSliding !== 'boolean'){
+                throw new Error('RotatingLogger :: illegal type "' + typeOfSliding + '" for sliding, "boolean" expected');
+            } else {
+                sliding = options.sliding;
+                delete options.sliding;
+            }
+        }
+        if (typeOfRecEnabled !== 'undefined'){
+            if (typeOfRecEnabled !== 'boolean'){
+                throw new Error('RotatingLogger :: illegal type "' + typeOfRecEnabled + '" for recordingEnabled, "boolean" expected');
+            } else {
+
+                recordingEnabled = options.recordingEnabled;
+                isRecording = options.recordingEnabled;
+                delete options.recordingEnabled;
+            }
+        }
+        if (typeOfSaveRecords === 'function'){
+            saveRecords = options.saveRecords;
+        } else if (typeOfSaveRecords !== 'undefined'){
+            throw new Error('RotatingLogger :: illegal type for saveRecords - expected function, got ' + valueType);
+        }
+
+        logger.init(options);
+    };
+
+};
+
+module.exports = RotatingLogger;
+
+},{"./base-logger.js":297}],300:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -6330,7 +6487,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],299:[function(require,module,exports){
+},{}],301:[function(require,module,exports){
 (function (process,global){
 
 !(function(global) {
@@ -6993,7 +7150,7 @@ process.umask = function() { return 0; };
 );
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":298}],300:[function(require,module,exports){
+},{"_process":300}],302:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7005,18 +7162,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 require('babel-polyfill');
 
-var _baseLogger = require('../node_modules/logger-pro/src/base-logger.js');
-
-var _baseLogger2 = _interopRequireDefault(_baseLogger);
+var _loggerPro = require('logger-pro');
 
 var _utils = require('./utils');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-_baseLogger2.default.init({ enabled: true, level: 'log' });
-var LOG = _baseLogger2.default;
+_loggerPro.Logger.init({ enabled: true, level: 'log' });
+var LOG = _loggerPro.Logger;
 
 var defaultOptions = {
     method: 'GET',
@@ -7315,7 +7468,7 @@ exports.getImageRaw = getImageRaw;
 exports.getJSON = getJSON;
 exports.JSONPRequest = JSONPRequest;
 
-},{"../node_modules/logger-pro/src/base-logger.js":297,"./utils":301,"babel-polyfill":1}],301:[function(require,module,exports){
+},{"./utils":303,"babel-polyfill":1,"logger-pro":298}],303:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7412,5 +7565,5 @@ exports.queryfy = queryfy;
 exports.dequeryfy = dequeryfy;
 exports.getType = getType;
 
-},{}]},{},[300])(300)
+},{}]},{},[302])(302)
 });
