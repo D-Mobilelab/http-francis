@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Logger from '../node_modules/logger-pro/src/base-logger.js';
 import {
     extend,
