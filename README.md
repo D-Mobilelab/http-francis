@@ -27,6 +27,41 @@ bower install --save http-francis
 ```
 You can found the library ready for production on <i>bower_components/http-francis/dist/dist.js</i>
 
+## Example
+```
+var Francis = require('http-francis');
+var francis = new Francis.Http({
+    method:"GET", // JSONP, POST, DELETE, PUT
+    url:"https://httpbin.org/get"
+});
+
+francis.promise.then((response) => { 
+    response // [data, xhr.status, xhr]
+ })
+```
+
+## Retrieve an image as base64
+```
+var Francis = require('http-francis');
+var francis = new Francis.Http({
+    method: "GET",
+    url: "https://someimageurl/image.png",
+    responseType: "blob",
+    mimeType: "image/png",
+    onProgress:(percentage)=>{ 
+        // there must be Content-Length header in the response to get the right percentage
+        // otherwise percentage is a NaN
+    }
+});
+
+francis.promise.then((response) => { 
+    var imgTag = document.createElement("img");
+    imgTag.src = response[0];
+    document.body.appendChild(imgTag);
+    
+ })
+```
+
 ## Documentation
 
 To read documentation, go to:
