@@ -1,23 +1,22 @@
+sudo: required
+dist: trusty
 language: node_js
-
-node_js:
-  - "4"
-
-branches:
- only:
-   - master
-
+git:
+  depth: 10
 before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - npm install -g bower grunt npm@3
-  - npm -v
-  - node -v
-
+  - npm install  
+  - sudo apt-get update
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
 install:
   - npm install
   - bower install
-
-after_install:
-  - ls -la node_modules/ 
-
 script:
-  - grunt travis -v
+  - grunt test
+node_js:
+  - "5"

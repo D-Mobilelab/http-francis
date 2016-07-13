@@ -2,11 +2,9 @@
 // http://karma-runner.github.io/0.12/config/configuration-file.html
 // Generated on 2015-05-15 using
 // generator-karma 1.0.0
+module.exports = function(config) {    
 
-module.exports = function(config) {
-    'use strict';
-
-    config.set({
+    var karmaConf = {
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: false,
 
@@ -33,11 +31,12 @@ module.exports = function(config) {
         // web server port
         port: 8080,
         // Start these browsers, currently available:
-        // - Chrome, ChromeCanary, Firefox, Opera, Safari (only Mac), PhantomJS, IE (only Windows)
+        // - Chrome, Chrome
+        // Canary, Firefox, Opera, Safari (only Mac), PhantomJS, IE (only Windows)
         browsers: [
             "Chrome"
         ],
-        reporters: ['coverage', 'coveralls', 'mocha'],
+        reporters: ['mocha', 'coverage', 'coveralls'],
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: false,
@@ -62,13 +61,15 @@ module.exports = function(config) {
                 subdir: 'lcov'
             }]
         },
-
-        // enable / disable colors in the output (reporters and logs)
-        colors: true,
-
         browserify: {
             debug: true,
             transform: ['babelify', 'browserify-istanbul']
+        },
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
         }
 
         // Uncomment the following lines if you are using grunt's server to run the tests
@@ -77,5 +78,12 @@ module.exports = function(config) {
         // },
         // URL root prevent conflicts with the site root
         // urlRoot: '_karma_'
-});
+    };
+    
+    if (process.env.TRAVIS) {
+        console.log('TRAVIS!', process.env.TRAVIS);
+        console.log('Running Travis Chrome for tests');
+        karmaConf.browsers = ['Chrome_travis_ci'];
+    }
+    config.set(karmaConf);
 };
