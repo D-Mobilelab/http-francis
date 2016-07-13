@@ -25,16 +25,15 @@ var defaultOptions = {
 };
 
 /**
- * The Http class
- * @constructor
- * @alias module:src/Http
- * @param {Object} requestParams - object where you can specify the options of the request
- * @param {String} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
- * @param {String} requestParams.url - the url to request for
- * @param {Object} [requestParams.headers={"Accept":"application/json"}] - the headers object
- * @param {String} [requestParams.timeout=2000] - the timeout of the request in ms
- * @param {Boolean} [requestParams.async=true] -
- * @returns {Promise}
+ * @ngdoc class
+ * @name Http 
+ * @description an http class to make requests over the net with retry and interval between them
+ * @param {object} requestParams - object where you can specify the options of the request
+ * @param {string} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
+ * @param {string} requestParams.url - the url to request for
+ * @param {object} [requestParams.headers={"Accept":"application/json"}] - the headers object
+ * @param {string} [requestParams.timeout=2000] - the timeout of the request in ms
+ * @param {boolean} [requestParams.async=true] - the request could be synchrounous
  * */
 class Http{
     constructor(options, callback = () => {}){  
@@ -96,8 +95,7 @@ class Http{
         if (this.options.headers){
             addCustomHeaders(this.options.headers, xhr);    
         }
-
-        // CORS
+        
         if (this.options.withCredentials && Http.isCORSSupported()){
             xhr.withCredentials = true;    
         }  
@@ -213,13 +211,12 @@ function addCustomHeaders(headersObj, xhr){
 /**
  * getImageRaw from a specific url
  *
- * @alias module:src/modules/Utils.getImageRaw
  * @param {Object} options - the options object
  * @param {String} options.url - http or whatever
  * @param {String} [options.responseType="blob"] - possible values arraybuffer|blob
  * @param {String} [options.mimeType="image/jpeg"] - possible values "image/png"|"image/jpeg" used only if "blob" is set as responseType
  * @param {Function} [_onProgress=function(){}]
- * @returns {Promise<Blob|ArrayBuffer|Error>}
+ * @return {Promise<Blob|ArrayBuffer|Error>}
  */
 function getImageRaw(options, _onProgress = () => {}){
     return new Promise((resolve, reject) => {
@@ -261,13 +258,13 @@ function getImageRaw(options, _onProgress = () => {}){
  * The function create a tag script and append a callback param in querystring.
  * The promise will be reject after 3s if the url fail to respond
  *
- * @class
- * @alias module:src/modules/Http.jsonpRequest
  * @example
- * request = new jsonpRequest("http://www.someapi.com/asd?somequery=1");
- * request.then(...)
+ * <pre>
+ * request = new JSONPRequest("http://www.someapi.com/asd?somequery=1");
+ * request.then((data) => {});
+ * </pre> 
  * @param {String} url - the url with querystring but without &callback at the end or &function
- * @returns {Promise<Object|String>}
+ * @return {Promise<Object|String>}
  * */
 function JSONPRequest(url){
     var self = this;
@@ -311,9 +308,8 @@ function JSONPRequest(url){
 /**
  * getJSON
  *
- * @alias module:src/modules/Http.getJSON
  * @param {String} url - for example http://jsonplaceholder.typicode.com/comments?postId=1
- * @returns {Promise<Object|String>} the string error is the statuscode
+ * @return {Promise} the string error is the statuscode
  * */
 function getJSON(url){
     url = encodeURI(url);
@@ -345,6 +341,12 @@ function getJSON(url){
     return daRequest;
 }
 
+/**
+ * @ngdoc object
+ * @name Francis
+ *
+ * @description an http module to make requests over the net with retry and interval between them
+ */
 export {
     Http,
     getImageRaw,
