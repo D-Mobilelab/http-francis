@@ -197,7 +197,7 @@ function wrapProgress(fn){
             var percentComplete = Math.round((progressEvent.loaded / progressEvent.total) * 100);
             return fn(percentComplete);            
         } else {
-            return fn('loading');
+            return fn(NaN);
         }
     };
 }

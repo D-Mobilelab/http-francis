@@ -102,7 +102,7 @@ describe('Request class tests', function(){
             success(result);
             expect(success).toHaveBeenCalled(); 
             expect(progress).toHaveBeenCalled();
-            expect(progress).toHaveBeenCalledWith('loading');            
+            expect(progress).toHaveBeenCalledWith(NaN);            
             expect(error).not.toHaveBeenCalled();
             // trust me. it works!
             // expect(result[0].documentElement).toBeDefined();
