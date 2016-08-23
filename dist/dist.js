@@ -7216,7 +7216,7 @@ var Http = function () {
             }
 
             if (this.options.method.toUpperCase() === 'JSONP') {
-                var call = new JSONPRequest(this.options.url).prom.then(function (response) {
+                var call = new JSONPRequest(this.options.url, this.options.timeout || 3000).prom.then(function (response) {
                     resolve(response);
                     self.callback(response);
                 }).catch(function (reason) {
@@ -7284,7 +7284,7 @@ var Http = function () {
                     } else {
                         self.timeoutID = setTimeout(function () {
                             self.options.attempt -= 1;
-                            console.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');
+                            LOG.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');
                             self.do(resolve, reject);
                         }, self.options.retryAfter);
                     }
@@ -7395,8 +7395,10 @@ function getImageRaw(options) {
 }
 
 function JSONPRequest(url) {
+    var timeout = arguments.length <= 1 || arguments[1] === undefined ? 3000 : arguments[1];
+
     var self = this;
-    self.timeout = 3000;
+    self.timeout = timeout;
     self.called = false;
     if (window.document) {
         var ts = Date.now();

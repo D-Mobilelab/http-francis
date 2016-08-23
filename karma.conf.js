@@ -50,20 +50,18 @@ module.exports = function(config) {
             'src/**/*.js': ['browserify', 'coverage'],
             'test/*.test.js': ['browserify']
         },
-        coverageReporter: {
-            reporters: [{ type: 'text' }, {
-                type: 'html',
-                dir: 'test/coverage',
-                subdir: 'html'
-            }, {
-                type: 'lcovonly',
-                dir: 'test/coverage',
-                subdir: 'lcov'
-            }]
-        },
         browserify: {
             debug: true,
-            transform: ['babelify', 'browserify-istanbul']
+            transform: [
+                'babelify',
+                ['browserify-istanbul', { instrumenter: require('isparta') }]
+            ]
+        },
+        coverageReporter: {
+            reporters: [
+                { type: 'html', dir: 'test/coverage', subdir: 'html' },
+                { type: 'text', dir: 'test/coverage', subdir: 'text' }
+            ]
         },
         customLaunchers: {
             Chrome_travis_ci: {

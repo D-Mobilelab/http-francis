@@ -87,7 +87,7 @@ class Http{
         }
 
         if (this.options.method.toUpperCase() === 'JSONP'){
-            var call = new JSONPRequest(this.options.url)
+            var call = new JSONPRequest(this.options.url, this.options.timeout || 3000)
                             .prom.then((response) => {
                                 resolve(response);
                                 self.callback(response);
@@ -166,7 +166,7 @@ class Http{
                     // statusCode >= 400 retry                
                     self.timeoutID = setTimeout(function(){
                         self.options.attempt -= 1;
-                        console.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');                        
+                        LOG.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');                        
                         self.do(resolve, reject);
                     }, self.options.retryAfter);                
                 }
@@ -298,11 +298,12 @@ function getImageRaw(options, _onProgress = () => {}){
  * request.then((data) => {});
  * </pre> 
  * @param {String} url - the url with querystring but without &callback at the end or &function
+ * @param {Number} timeout - ms range for the response
  * @return {Promise<Object|String>}
  * */
-function JSONPRequest(url){
+function JSONPRequest(url, timeout = 3000){
     var self = this;
-    self.timeout = 3000;
+    self.timeout = timeout;
     self.called = false;
     if (window.document) {
         var ts = Date.now();

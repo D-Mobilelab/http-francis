@@ -1,6 +1,6 @@
 {
   "name": "http-francis",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "description of http-francis",
   "keywords": [],
   "homepage": "https://github.com/D-Mobilelab/http-francis",
@@ -27,6 +27,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babelify": "^7.3.0",
     "dml-js-boilerplate": "2.x",
+    "isparta": "^4.0.0",
     "jasmine-ajax": "^3.2.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^1.0.1",

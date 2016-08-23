@@ -1,3 +1,6 @@
+** 0.1.5 **
+- JSONP with timeout configurable
+
 ** 0.1.4 **
 - logger-pro@2.0.2
 

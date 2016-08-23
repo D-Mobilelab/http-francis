@@ -222,8 +222,8 @@ describe('Request class tests', function(){
      it('JSONP with Http module', (done) => {
          var r = new Http({
             method: 'JSONP',
-            url: JSONP_URL            
-        });        
+            url: JSONP_URL          
+        });     
         
         r.promise.then((response) => {
             expect(response).toBeDefined();
@@ -231,13 +231,15 @@ describe('Request class tests', function(){
             done();
         }).catch((reason) => {            
             console.log(r.calls);
+            done();
         });
      });
 
      it('JSONP fail with Http module', (done) => {
          var r = new Http({
             method: 'JSONP',
-            url: ''
+            url: '',
+            timeout: 1000
         });
 
         var mySuccessSpy = jasmine.createSpy('success');
