@@ -7370,9 +7370,11 @@ function getImageRaw(options) {
             switch (options.responseType) {
                 case 'blob':
                     result = new Blob([this.response], { type: options.mimeType || 'image/jpeg' });
+                    resolve(result);
                     break;
                 case 'arraybuffer':
                     result = this.response;
+                    resolve(result);
                     break;
                 default:
                     result = this.response;
