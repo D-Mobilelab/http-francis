@@ -121,10 +121,16 @@ function getType(obj){
     return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();    
 }
 
+function isAbsoluteUrl(str){
+    const regex = /https?:\/\//g;
+    return regex.test(str);
+}
+
 export {
     Iterator,
     extend,
     queryfy,
     dequeryfy,
-    getType
+    getType,
+    isAbsoluteUrl
 };

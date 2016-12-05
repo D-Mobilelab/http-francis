@@ -1,246 +1,5 @@
 import 'babel-polyfill';
-import { Logger } from 'logger-pro';
-import {
-    extend,
-    queryfy
-} from './utils';
-
-Logger.init({ enabled: true, level: 'log'});
-var LOG = Logger;
-
-var defaultOptions = {
-    method: 'GET',
-    url: '',
-    attempt: 1,
-    responseType: 'json', // json, document, "", text, blob, arraybuffer
-    dataType: 'json', // the type of data sent(if any)
-    callback: function(){},
-    headers: {},
-    data: null,
-    withCredentials: false,
-    async: true,
-    mimeType: '', // image/png"|"image/jpeg|text/plain mimeType only used when responseType is blob!
-    retryAfter: 0, // ms, used if attempt > 1
-    onProgress: function(){}
-};
-
-/**
- * @ngdoc function
- * @name Francis#Http
- * @methodOf Francis
- * */
-class Http{
-    /**
-     * @ngdoc object
-     * @name Francis:Http
-     * @description an http class to make requests over the net with retry and interval between them
-     * @param {object} requestParams - object where you can specify the options of the request
-     * @param {string} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
-     * @param {string} requestParams.url - the url to request for
-     * @param {object} [requestParams.headers={}] - the headers object
-     * @param {string} [requestParams.timeout=2000] - the timeout of the request in ms
-     * @param {string} [requestParams.attempt=1] - attempts. if it fails for some reason retry
-     * @param {number} [requestParams.retryAfter=0] - the interval between requests in ms: 500 for example   
-     * @param {boolean} [requestParams.async=true] - the request could be synchrounous, default async
-     * @param {function} [callback=function(){}] - onend callback
-     * @example
-     * <pre>
-     * //var Http = require("http-francis").Http;
-     * // <script src=http-francis.js></script> // in this case Francis.Http     
-     *  var getTask = new Http({
-     *       method: "GET",
-     *       url: "https://someimageurl/image.png",
-     *       responseType: "blob",
-     *       mimeType: "image/png",
-     *       onProgress:(percentage)=>{ 
-     *           // there must be Content-Length header in the response to get the right percentage
-     *           // otherwise percentage is a NaN
-     *       }
-     *   });
-     *
-     *   getTask.promise.then((response) => { 
-     *       var imgTag = document.createElement("img");
-     *       imgTag.src = response[0];
-     *       document.body.appendChild(imgTag);       
-     *   });
-     * </pre> 
-     */
-    constructor(options, callback = () => {}){  
-        var self = this;
-        this.options = extend(defaultOptions, options);  
-        this.calls = [];
-        this.callback = callback;
-        this.promise = new Promise((resolve, reject) => {
-            self.do(resolve, reject);
-        });
-    }
-
-    do(resolve, reject){
-        var self = this;
-        if (this.options.attempt === 0){      
-            var lastCall = this.calls[this.calls.length - 1];
-            reject({ status: lastCall.status, statusText: lastCall.statusText });
-            self.callback(lastCall.status);
-            clearTimeout(self.timeoutID);
-            self.timeoutID = null;
-            return;
-        }
-
-        if (this.options.method.toUpperCase() === 'JSONP'){
-            var call = new JSONPRequest(this.options.url, this.options.timeout || 3000)
-                            .prom.then((response) => {
-                                resolve(response);
-                                self.callback(response);
-                            }).catch((reason) => {                                
-                                reject(reason);
-                                self.callback(reason);
-                            });
-            this.calls.push(call);
-            return;
-        }
-
-        var xhr;
-        if (Http.isXMLHttpRequestSupported()) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xhr = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-
-        // store this request in the calls object
-        this.calls.push(xhr);
-
-        // OPEN
-        xhr.open(this.options.method.toUpperCase(), this.options.url, this.options.async);
-
-        // SENDING JSON?
-        if (self.options.dataType === 'json'){
-            self.options.data = JSON.stringify(self.options.data);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-        }  
-
-        // CUSTOM HEADERS
-        if (this.options.headers){
-            addCustomHeaders(this.options.headers, xhr);    
-        }
-        
-        if (this.options.withCredentials && Http.isCORSSupported()){
-            xhr.withCredentials = true;    
-        }  
-
-        // check responseType support
-        var responseTypeAware = 'responseType' in xhr;
-
-        if (responseTypeAware){    
-            xhr.responseType = this.options.responseType;    
-        }
-
-        LOG.log('responseType setted to ', xhr.responseType);
-
-        xhr.onreadystatechange = function(event){
-            if (xhr.readyState === xhr.DONE) {
-                if (xhr.status >= 200 && xhr.status < 400) {                    
-                    if (xhr.responseType === 'blob'){
-                        LOG.log('BLOB CASE!');
-                        
-                        // try to infer mimetype from extension?
-                        var blob = new Blob([xhr.response], { type: self.options.mimeType });
-                        var fileReader = new FileReader();
-                        
-                        fileReader.onload = function(e){ 
-                            var raw = e.target.result;    
-                            resolve([raw, xhr.status, xhr]);
-                        };
-                        
-                        fileReader.readAsDataURL(blob);
-                        
-                    } else {
-                        var result = parseResponse.bind(self)(xhr);   
-                        resolve(result);
-                        self.callback(result);    
-                    }               
-                            
-                    self.options.attempt = 0;
-                } else {
-                    // statusCode >= 400 retry                
-                    self.timeoutID = setTimeout(function(){
-                        self.options.attempt -= 1;
-                        LOG.log('FAIL. ' + xhr.status + ' still more ', self.options.attempt, ' attempts');                        
-                        self.do(resolve, reject);
-                    }, self.options.retryAfter);                
-                }
-            }
-        };
-
-        xhr.onprogress = wrapProgress(self.options.onProgress);
-        xhr.send(self.options.data);  
-    }
-
-
-    // Static Methods
-    static isXMLHttpRequestSupported(){
-        return !!window.XMLHttpRequest;
-    }
-
-    static isCORSSupported() {
-        return 'withCredentials' in new XMLHttpRequest;
-    }
-
-    static isXDomainSupported() {
-        return !!window.XDomainRequest;
-    }
-}
-
-/**
- * parseResponse
- * @param {XMLHttpRequest} xhr - parse 
- * @returns {array} - [responseData, statusCode, xhr]
- */
-function parseResponse(xhr){
-    var parsed;
-    var self = this;
-    if (window.karma || window.parent.karma){
-        // #]*§ WTF!!
-        LOG.info('TESTING MODE');
-        xhr.responseType = self.options.responseType;
-    }                        
-    LOG.log('responseType in readyState ', xhr.responseType);                                                                                
-    if (xhr.responseType === 'json' || xhr.responseType === 'arraybuffer'){
-        LOG.log('JSON CASE!', xhr.response);                        
-        parsed = xhr.response;
-    } else if (xhr.responseType === 'document'){
-        LOG.log('DOCUMENT CASE!', xhr.responseXML);
-        parsed = xhr.responseXML;
-    } else if (xhr.responseType === 'text' || xhr.responseType === ''){
-        LOG.log('TEXT CASE!');                
-        parsed = xhr.responseText;
-    } else {
-        LOG.log('DEFAULT CASE!', xhr.responseText);
-        parsed = xhr.responseText;
-    }
-    
-    return [parsed, xhr.status, xhr];
-}
-
-function wrapProgress(fn){
-    return function(progressEvent){
-        if (progressEvent.lengthComputable) {
-            var percentComplete = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-            return fn(percentComplete);            
-        } else {
-            return fn(NaN);
-        }
-    };
-}
-
-function addCustomHeaders(headersObj, xhr){
-    for (var k in headersObj){
-        if (headersObj.hasOwnProperty(k)){
-            xhr.setRequestHeader(k, headersObj[k]);           
-        }
-    }
-}
+import Http from './http';
 
 /**
  * getImageRaw from a specific url
@@ -262,9 +21,11 @@ function getImageRaw(options, _onProgress = () => {}){
             switch (options.responseType){
             case 'blob':
                 result = new Blob([this.response], { type: options.mimeType || 'image/jpeg' });
+                resolve(result);
                 break;
             case 'arraybuffer':
                 result = this.response;
+                resolve(result);
                 break;
             default:
                 result = this.response;
@@ -274,13 +35,10 @@ function getImageRaw(options, _onProgress = () => {}){
             }
         }
 
-        var transferCanceled = reject;
-        var transferFailed = reject;
-
         request.addEventListener('progress', _onProgress, false);
         request.addEventListener('load', transferComplete, false);
-        request.addEventListener('error', transferFailed, false);
-        request.addEventListener('abort', transferCanceled, false);
+        request.addEventListener('error', reject, false);
+        request.addEventListener('abort', reject, false);
 
         request.send(null);
     });
