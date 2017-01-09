@@ -1,7 +1,8 @@
-bower_components/
+bower_components
+build
+coverage
+dist
+docs
+node_modules
 npm-debug.log
-node_modules/
-test/coverage/
-docs/temp/
-src5/
-.DS_*
+.DS_Store

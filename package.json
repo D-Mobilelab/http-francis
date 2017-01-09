@@ -1,57 +1,71 @@
 {
   "name": "http-francis",
   "version": "0.1.6",
-  "description": "description of http-francis",
-  "keywords": [],
-  "homepage": "https://github.com/D-Mobilelab/http-francis",
-  "bugs": {
-    "url": "https://github.com/D-Mobilelab/http-francis/issues"
-  },
-  "license": "MIT",
-  "contributors": [],
+  "description": "",
+  "main": "dist/http-francis.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/D-Mobilelab/http-francis.git"
   },
-  "main": "src5/main.js",
-  "scripts": {},
-  "dependencies": {
-    "logger-pro": "^2.0.2"
+  "scripts": {
+    "build": "npm run clean && npm run build:dev && npm run build:prd",
+    "build:dev": "webpack dist/$npm_package_name.js --config tools/webpack.config.dev.js",
+    "build:prd": "webpack dist/$npm_package_name.min.js --config tools/webpack.config.prd.js",
+    "prepublish": "npm run test && npm run documentation && npm run build",
+    "clean": "rimraf dist build docs",
+    "lint": "eslint src",
+    "preversion": "npm run test",
+    "version": "npm run build && npm run gen:docs && git add dist docs -f",
+    "test": "karma start --single-run --no-auto-watch karma.config.js",
+    "test:watch": "karma start karma.config.js",
+    "documentation": "npm run gen:docs && npm run gen:readme",
+    "serve:docs": "./node_modules/documentation/bin/documentation.js serve src/main.js",
+    "gen:docs": "./node_modules/documentation/bin/documentation.js build src/main.js -f html -o docs/$npm_package_version",
+    "gen:readme": "./node_modules/documentation/bin/documentation.js readme src/main.js --section=API"
   },
+  "keywords": [
+    "es6",
+    "babel",
+    "webpack",
+    "jasmine",
+    "karma",
+    "istanbul",
+    "http",
+    "client"
+  ],
+  "author": "Pasquale Mangialavori",
+  "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-eslint": "^6.1.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babelify": "^7.3.0",
-    "dml-js-boilerplate": "2.x",
-    "isparta": "^4.0.0",
-    "jasmine-ajax": "^3.2.0",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-mocha": "^1.1.1",
-    "karma-mocha-reporter": "^2.0.4"
+    "babel-core": "^6.4.0",
+    "babel-eslint": "^4.1.6",
+    "babel-istanbul": "^0.6.0",
+    "babel-istanbul-loader": "0.0.1",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.3.13",
+    "documentation": "^4.0.0-beta16",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "gh-pages": "^0.12.0",
+    "jasmine-ajax": "^3.3.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.3",
+    "karma-coveralls": "^1.1.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-mocha-reporter": "^2.2.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "loader-utils": "^0.2.12",
+    "rimraf": "^2.5.0",
+    "webpack": "^1.12.11"
   },
-  "engines": {
-    "node": "0.10.25"
-  },
-  "private": false,
-  "browserify": {
-    "src": "main.js",
-    "dist": "dist.js",
-    "global": "Francis",
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ],
-          "comments": false
-        }
-      ]
-    ]
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "core-decorators": "^0.15.0",
+    "docomo-utils": "https://github.com/D-Mobilelab/docomo-utils/tarball/v0.1.0"
   }
 }
