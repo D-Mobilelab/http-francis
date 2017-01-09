@@ -1,5 +1,5 @@
 import { Http } from '../main';
-import { getType } from 'utils';
+import { getType } from 'docomo-utils';
 
 import 'jasmine-ajax';
 

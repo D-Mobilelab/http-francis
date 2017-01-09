@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
-    "core-decorators": "^0.15.0"
+    "core-decorators": "^0.15.0",
+    "docomo-utils": "https://github.com/D-Mobilelab/docomo-utils/tarball/v0.1.0"
   }
 }

@@ -1,6 +1,6 @@
 import {
     queryfy
-} from 'utils';
+} from 'docomo-utils';
 var LOG = window.console;
 
 var defaultOptions = {
