@@ -1,12 +1,7 @@
-import 'babel-polyfill';
-import { Logger } from 'logger-pro';
 import {
-    extend,
     queryfy
-} from './utils';
-
-Logger.init({ enabled: true, level: 'log'});
-var LOG = Logger;
+} from 'docomo-utils';
+var LOG = window.console;
 
 var defaultOptions = {
     method: 'GET',
@@ -25,14 +20,11 @@ var defaultOptions = {
 };
 
 /**
- * @ngdoc function
  * @name Francis#Http
  * @methodOf Francis
  * */
-class Http{
+class Http {
     /**
-     * @ngdoc object
-     * @name Francis:Http
      * @description an http class to make requests over the net with retry and interval between them
      * @param {object} requestParams - object where you can specify the options of the request
      * @param {string} [requestParams.type=GET] - the type of the request: possible values POST, GET, PUT, DELETE and JSONP
@@ -45,8 +37,14 @@ class Http{
      * @param {function} [callback=function(){}] - onend callback
      * @example
      * <pre>
-     * //var Http = require("http-francis").Http;
-     * // <script src=http-francis.js></script> // in this case Francis.Http     
+     * npm install --save http-francis
+     * 
+     * import { Http, getImageRaw, JSONPRequest } from 'http-francis';
+     * OR
+     * var Http = require("http-francis").Http;
+     * OR
+     * <script src='http-francis.js'></script> 
+     * // in global case window['http-francis'].Http
      *  var getTask = new Http({
      *       method: "GET",
      *       url: "https://someimageurl/image.png",
@@ -67,7 +65,7 @@ class Http{
      */
     constructor(options, callback = () => {}){  
         var self = this;
-        this.options = extend(defaultOptions, options);  
+        this.options = {...defaultOptions, ...options}
         this.calls = [];
         this.callback = callback;
         this.promise = new Promise((resolve, reject) => {
@@ -389,4 +387,4 @@ export {
     getImageRaw,
     getJSON,
     JSONPRequest
-};
+}
