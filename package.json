@@ -1,6 +1,6 @@
 {
   "name": "http-francis",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/http-francis.js",
   "repository": {
