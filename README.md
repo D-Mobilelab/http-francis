@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/D-Mobilelab/http-francis/badge.svg?branch=master)](https://coveralls.io/github/D-Mobilelab/http-francis?branch=master)
 [![npm version](https://badge.fury.io/js/http-francis.svg)](https://badge.fury.io/js/http-francis)
 [![Bower version](https://badge.fury.io/bo/http-francis.svg)](https://badge.fury.io/bo/http-francis)
-[![GitHub version](https://badge.fury.io/gh/D-Mobilelab%http-francis.svg)](https://badge.fury.io/gh/D-Mobilelab%http-francis)
+[![GitHub version](https://badge.fury.io/gh/D-Mobilelab%http-francis.svg)](https://badge.fury.io/gh/D-Mobilelab%http-francis) [![Greenkeeper badge](https://badges.greenkeeper.io/D-Mobilelab/http-francis.svg)](https://greenkeeper.io/)
 
 -   retry
 -   attempts
