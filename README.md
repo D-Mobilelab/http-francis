@@ -1,5 +1,7 @@
 # http-francis
 
+## [!!!] This repository has been deprecated, we suggest to use [https://github.com/docomodigital/js-fetcher](https://github.com/docomodigital/js-fetcher) instead
+
 [![Build Status](https://travis-ci.org/D-Mobilelab/http-francis.svg?branch=master)](https://travis-ci.org/D-Mobilelab/http-francis)
 [![Coverage Status](https://coveralls.io/repos/github/D-Mobilelab/http-francis/badge.svg?branch=master)](https://coveralls.io/github/D-Mobilelab/http-francis?branch=master)
 [![npm version](https://badge.fury.io/js/http-francis.svg)](https://badge.fury.io/js/http-francis)
